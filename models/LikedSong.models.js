@@ -1,3 +1,5 @@
+import mongoose from 'mongoose';
+const { Schema } = mongoose;
 const UserLikedSongSchema = new Schema({
     user: {
       type: Schema.Types.ObjectId,
@@ -19,8 +21,5 @@ const UserLikedSongSchema = new Schema({
 UserLikedSongSchema.index({ user: 1, song: 1 }, { unique: true });
 
 
-const UserLikedSong = mongoose.model('UserLikedSong', UserLikedSongSchema);
+export const UserLikedSong = mongoose.model('UserLikedSong', UserLikedSongSchema);
 
-module.exports = {
-  UserLikedSong
-};

@@ -1,3 +1,5 @@
+import mongoose from 'mongoose';
+const { Schema } = mongoose;
 const RecentlyPlayedSchema = new Schema({
     user: {
       type: Schema.Types.ObjectId,
@@ -23,8 +25,5 @@ const RecentlyPlayedSchema = new Schema({
 RecentlyPlayedSchema.index({ user: 1, playedAt: -1 });
 
 
-const RecentlyPlayed = mongoose.model('RecentlyPlayed', RecentlyPlayedSchema);
+export const RecentlyPlayed = mongoose.model('RecentlyPlayed', RecentlyPlayedSchema);
 
-module.exports = {
-  RecentlyPlayed
-};

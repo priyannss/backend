@@ -1,3 +1,4 @@
+import {Schema} from 'mongoose';
 const SongSchema = new Schema({
     title: {
       type: String,
@@ -24,12 +25,7 @@ const SongSchema = new Schema({
       type: String,
       trim: true
     },
-    popularityScore: {
-      type: Number,
-      min: 0,
-      max: 100,
-      default: 0
-    },
+   
     audioUrl: {
       type: String
     },
@@ -40,6 +36,4 @@ const SongSchema = new Schema({
 
 const Song = mongoose.model('Song', SongSchema);
 
-module.exports = {
-  Song
-};
+export default Song;

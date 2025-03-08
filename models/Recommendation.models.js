@@ -1,3 +1,5 @@
+import mongoose from 'mongoose';
+const { Schema } = mongoose;
 const RecommendationSchema = new Schema({
     user: {
       type: Schema.Types.ObjectId,
@@ -31,12 +33,9 @@ const RecommendationSchema = new Schema({
     }]
   });
   
-  // Create an index to efficiently query a user's active recommendations
+
   RecommendationSchema.index({ user: 1, 'recommendations.status': 1 });
 
 
-const Recommendation = mongoose.model('Recommendation', RecommendationSchema);
+export const Recommendation = mongoose.model('Recommendation', RecommendationSchema);
 
-module.exports = {
-  Recommendation
-};
