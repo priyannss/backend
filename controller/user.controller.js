@@ -4,6 +4,7 @@ import { Playlist } from '../models/Playlist.models.js'
 import { RecentlyPlayed } from '../models/RecentlyPlayed.models.js'
 import { Song } from '../models/Song.models.js'
 import { Recommendation } from '../models/Recommendation.models.js'
+import getSpotifyId from '../services/spotifySongId.js'
 
 export const getRecommendations = async (req, res) => {
 
@@ -34,6 +35,38 @@ export const getUser = async (req, res) => {
 }
 export const getSong = async (req, res) => {
     
+}
+export const addSong=async(req,res)=>{
+    try {
+        const { title, artist } = req.body;
+
+        if (!title || !artist) {
+            return res.status(400).json({ message: "Title and artist are required" });
+        }
+
+        // Fetch song details from Spotify
+        const songData = await getSpotifyId(title, artist);
+        if (!songData) {
+            return res.status(404).json({ message: "Song not found on Spotify" });
+        }
+
+        const { spotifyId, duration, album, coverImage } = songData;
+
+        // Check if the song already exists
+        const existingSong = await Song.findOne({ spotifyId });
+        if (existingSong) {
+            return res.status(400).json({ message: "Song already exists in the database" });
+        }
+
+        // Create and save the new song
+        const newSong = new Song({ title, artist, spotifyId, duration, album, coverImage });
+        await newSong.save();
+
+        res.status(201).json({ message: "Song added successfully", song: newSong });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server error" });
+    }
 }
 export const login = async (req, res) => {
     const { email, password } = req.body;

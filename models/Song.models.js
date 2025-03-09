@@ -1,39 +1,16 @@
-import {Schema} from 'mongoose';
+
+
+import mongoose from 'mongoose';
+const { Schema } = mongoose;
+
 const SongSchema = new Schema({
-    title: {
-      type: String,
-      required: true,
-      trim: true
-    },
-    artist: {
-      type: String,
-      required: true,
-      trim: true
-    },
-    album: {
-      type: String,
-      trim: true
-    },
-    duration: {
-      type: Number, // in seconds
-      min: 0
-    },
-    releaseDate: {
-      type: Date
-    },
-    genre: {
-      type: String,
-      trim: true
-    },
-   
-    audioUrl: {
-      type: String
-    },
-    imageUrl: {
-      type: String
-    }
-  });
+    title: { type: String, required: true },
+    artist: { type: String, required: true },
+    spotifyId: { type: String, required: true, unique: true }, // Unique Spotify ID
+    duration: { type: Number }, // Duration in seconds
+    album: { type: String },
+    coverImage: { type: String } // URL to album cover
+});
 
-const Song = mongoose.model('Song', SongSchema);
+export const Song = mongoose.model('Song', SongSchema);
 
-export default Song;
