@@ -13,6 +13,7 @@ const getSpotifyId = async (title, artist) => {
     );
 
     const data = await response.json();
+    console.log(data);
     if (data.tracks.items.length > 0) {
         const song = data.tracks.items[0];
         return {
