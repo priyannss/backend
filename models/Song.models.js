@@ -9,7 +9,8 @@ const SongSchema = new Schema({
     spotifyId: { type: String, required: true, unique: true }, // Unique Spotify ID
     duration: { type: Number }, // Duration in seconds
     album: { type: String },
-    coverImage: { type: String } // URL to album cover
+    coverImage: { type: String }// URL to album cover
+    
 });
 
 export const Song = mongoose.model('Song', SongSchema);

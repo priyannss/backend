@@ -10,6 +10,9 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
  connectDB()
+ app.get('/',(req,res)=>{
+    res.json({message:"hey there!!!!1"})
+ })
 app.use('/api',userRouter)
 const PORT = process.env.PORT || 5002
 app.listen(process.env.PORT, () => {
